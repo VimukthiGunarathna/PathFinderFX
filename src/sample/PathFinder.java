@@ -110,7 +110,8 @@ public class PathFinder {
 
 
     /**
-     * This method
+     * This method compares the nodes and selects the shortest path
+     * and them to a array
      *
      * @param x1 : user entered starting point 'x' co-ordinate
      * @param y1 : user entered starting point 'y' co-ordinate
@@ -267,7 +268,10 @@ public class PathFinder {
 
     }
 
-
+    /**
+     * This method calculates G value of connected nodes and
+     * calculates the full cost by calling the calculatecost()
+     */
     static void travel() {
 
         //Start location adding to open list
@@ -383,6 +387,8 @@ public class PathFinder {
         }
     }
 
+
+
     /**
      * This method calculates the full cost and print
      *
@@ -396,7 +402,7 @@ public class PathFinder {
             // Checks whether a node is blocked or visited
         if (temp.weight == 5 || closed[temp.x][temp.y]) {
             return;
-            // 
+            // Can't move this cell
             // no need to look for this cell to move
         }
 

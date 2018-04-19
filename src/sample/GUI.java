@@ -55,10 +55,12 @@ public class GUI extends Application {
         Welcome.show();
     }
 
+
+
+
     /**
      * Grid Panel window that has all the GUI elements in the Path Finder
      */
-
     private Scene GridPanel() {
 
 
@@ -313,25 +315,66 @@ public class GUI extends Application {
         return scn2;
     }
 
+
+
+    /**
+     * This method returns the selected string value
+     * from the choicebox
+     *
+     * @param cb : selected string value
+     * @return
+     */
     private String getChoice(ChoiceBox<String> cb) {
         return cb.getValue();
     }
 
+
+    /**
+     * This method contains the properties of
+     * the TextField
+     *
+     * @param txt : txt field we created in GUI
+     * @param placeHolder : placeholder we created
+     * @param width : width of txt field
+     */
     private void setTextField(TextField txt, String placeHolder, double width) {
         txt.setPromptText(placeHolder);
         txt.setPrefWidth(width);
     }
 
+
+    /**
+     * This method contains the properties of
+     * the HBox
+     *
+     * @param hBox : Hbox we created
+     * @param value: Position of the Hbox
+     * @param spacing : Spacing of the Hbox
+     */
     private void setContainerHbox(HBox hBox, Pos value, double spacing) {
         hBox.setAlignment(value);
         hBox.setSpacing(spacing);
     }
 
+
+    /**
+     * This method contains the properties of
+     * the VBox
+     *
+     * @param vBox : Vbox we created
+     * @param value : Position of the Vbox
+     * @param spacing : Spacing of the Vbox
+     */
     private void setContainerVbox(VBox vBox, Pos value, double spacing) {
         vBox.setAlignment(value);
         vBox.setSpacing(spacing);
     }
 
+
+    /**
+     * This method reset the grid
+     * @param scene
+     */
     private void resetgrid(Scene scene) {
         Grid.startHistory=0;
         Welcome.setScene(scene);

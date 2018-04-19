@@ -142,7 +142,6 @@ public class PathFinder {
         });
 
 
-        
         for (int x = 0; x < Grid.SIZE; x++) {
             for (int y = 0; y < Grid.SIZE; y++) {
 
@@ -164,7 +163,6 @@ public class PathFinder {
                 }
             }
         }
-
 
 
         /**
@@ -230,8 +228,6 @@ public class PathFinder {
         }
 
 
-
-
         // display grid & path in CLI - time start
         //time2_t1 = System.nanoTime();
 
@@ -282,12 +278,19 @@ public class PathFinder {
 
         while (true) {
             current = open.poll();
+
             if (current.weight == 5) {
                 break;
             }
 
+            /**
+             * Puts blocked cells to closed list
+             * No need to check them again
+             */
             // this cell is no more visitable
             closed[current.x][current.y] = true;
+
+
 
             /* end cell is closed in above line,
              since 'path found' is determined if end cell is closed */
@@ -300,32 +303,35 @@ public class PathFinder {
 
             // update costs of connected cells
             // each connected cells are replaced in this
-            Grid t;
+
+            /**
+             * Calculating the cost of connected nodes
+             */
+
+            Grid gridTemp;
 
             if (current.x - 1 >= 0) {
-
                 // left cell
-                t = grid[current.x - 1][current.y];
-                calculateCost(current, t, current.g + ver_hori_cost);
+                gridTemp = grid[current.x - 1][current.y];
+                calculateCost(current, gridTemp, current.g + ver_hori_cost);
+
 
                 if (current.y - 1 >= 0) {
-
                     if (metrics != "Manhattan") {
-                        // left bottom cell (not for manhattan)
+                        // left bottom cell (not manhattan)
                         System.out.println(metrics);
-                        t = grid[current.x - 1][current.y - 1];
-                        calculateCost(current, t, current.g + dCost);
+                        gridTemp = grid[current.x - 1][current.y - 1];
+                        calculateCost(current, gridTemp, current.g + dCost);
                     }
-
                 }
 
 
                 if (current.y + 1 < grid[0].length) {
                     if (metrics != "Manhattan") {
-                        // left top cell (not for manhattan)
+                        // left top cell (not manhattan)
                         System.out.println(metrics);
-                        t = grid[current.x - 1][current.y + 1];
-                        calculateCost(current, t, current.g + dCost);
+                        gridTemp = grid[current.x - 1][current.y + 1];
+                        calculateCost(current, gridTemp, current.g + dCost);
                     }
                 }
 
@@ -335,40 +341,40 @@ public class PathFinder {
 
             if (current.y - 1 >= 0) {
                 // bottom cell
-                t = grid[current.x][current.y - 1];
-                calculateCost(current, t, current.g + ver_hori_cost);
+                gridTemp = grid[current.x][current.y - 1];
+                calculateCost(current, gridTemp, current.g + ver_hori_cost);
             }
 
 
             if (current.y + 1 < grid[0].length) {
                 // top cell
-                t = grid[current.x][current.y + 1];
-                calculateCost(current, t, current.g + ver_hori_cost);
+                gridTemp = grid[current.x][current.y + 1];
+                calculateCost(current, gridTemp, current.g + ver_hori_cost);
             }
 
 
             if (current.x + 1 < grid.length) {
                 // right cell
-                t = grid[current.x + 1][current.y];
-                calculateCost(current, t, current.g + ver_hori_cost);
+                gridTemp = grid[current.x + 1][current.y];
+                calculateCost(current, gridTemp, current.g + ver_hori_cost);
 
 
                 if (current.y - 1 >= 0) {
                     if (metrics != "Manhattan") {
-                        // right bottom cell (not for manhattan)
+                        // right bottom cell (not  manhattan)
                         System.out.println(metrics);
-                        t = grid[current.x + 1][current.y - 1];
-                        calculateCost(current, t, current.g + dCost);
+                        gridTemp = grid[current.x + 1][current.y - 1];
+                        calculateCost(current, gridTemp, current.g + dCost);
                     }
                 }
 
 
                 if (current.y + 1 < grid[0].length) {
                     if (metrics != "Manhattan") {
-                        // top right cell (not for manhattan)
+                        // top right cell (not  manhattan)
                         System.out.println(metrics);
-                        t = grid[current.x + 1][current.y + 1];
-                        calculateCost(current, t, current.g + dCost);
+                        gridTemp = grid[current.x + 1][current.y + 1];
+                        calculateCost(current, gridTemp, current.g + dCost);
                     }
                 }
             }
@@ -377,12 +383,21 @@ public class PathFinder {
         }
     }
 
+    /**
+     * This method calculates the full cost and print
+     *
+     * @param current :
+     * @param temp    :
+     * @param cost    : current node G value
+     */
     static void calculateCost(Grid current, Grid temp, double cost) {
 
-        // if temp cell is blocked or visited through
+
+            // Checks whether a node is blocked or visited
         if (temp.weight == 5 || closed[temp.x][temp.y]) {
-            // no need to look for this cell to move
             return;
+            // 
+            // no need to look for this cell to move
         }
 
         // temporary F value for the temp node
@@ -400,6 +415,7 @@ public class PathFinder {
 
             // current cell is the parent for this temp cell
             temp.parent_cell = current;
+
 
             if (!inOpen) {
                 // open this cell

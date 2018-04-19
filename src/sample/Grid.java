@@ -176,6 +176,9 @@ public class Grid {
     public static void findPath_btnAction(GridPane grid, int S_xcor, int S_ycor, int E_xcor, int E_ycor) {
 
 
+
+        System.out.println("Total Cost :" + PathFinder.grid[e_X][e_Y].fullCost);
+
         PathFinder.findPath(S_xcor, S_ycor, E_xcor, E_ycor);
         PathFinder.drawPath(S_xcor, S_ycor, E_xcor, E_ycor, waypoint);
 

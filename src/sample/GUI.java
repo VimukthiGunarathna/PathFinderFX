@@ -1,11 +1,15 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -18,6 +22,7 @@ public class GUI extends Application {
     Stage Welcome, Panel;
     Scene scn1, scn2, scn3;
     static GridPane grid;
+    static ImageView background,gridimg;
 
     public static void main(String[] args) {
         launch(args);
@@ -123,18 +128,30 @@ public class GUI extends Application {
         Label lblSelectView = new Label("Select View");
 
         ToggleGroup group = new ToggleGroup();
-        RadioButton Normal = new RadioButton("Grid");
-        RadioButton Colored = new RadioButton("Background");
-        Normal.setToggleGroup(group);
-        Colored.setToggleGroup(group);
-        Normal.setUserData("Grid");
-        Colored.setUserData("Background");
+        RadioButton radio_grid = new RadioButton("Grid");
+        RadioButton radio_bckgrnd = new RadioButton("Background");
+        radio_grid.setToggleGroup(group);
+        radio_bckgrnd.setToggleGroup(group);
+        radio_grid.setUserData("Grid");
+        radio_bckgrnd.setUserData("Background");
 
-        Normal.setSelected(true);
+
+        if (radio_bckgrnd.isSelected())
+        {
+            //labelresponse.setText("Correct answer");
+        }
+        else
+        {
+            //labelresponse.setText("Wrong answer");
+        }
+
+
+
+        radio_grid.setSelected(true);
 
         HBox options = new HBox();
         setContainerHbox(options, Pos.CENTER, 20);
-        options.getChildren().addAll(Normal, Colored);
+        options.getChildren().addAll(radio_grid, radio_bckgrnd);
 
         sub2.getChildren().addAll(lblSelectView, options);
 

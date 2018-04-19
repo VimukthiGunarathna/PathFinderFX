@@ -1,0 +1,34 @@
+#Grid {
+    -fx-background-image: url('/Images/12.jpg');
+    -fx-background-size: 1024 720;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+    -fx-background-repeat: stretch;
+
+}
+
+.button {
+    -fx-background-color: #2196f3;
+    -fx-font-veight:bold;
+    -fx-background-radius: 22;
+    -fx-font-size: 20;
+    -fx-text-fill: white;
+
+}
+.button:hover {
+
+    -fx-font-veight:bold;
+    -fx-background-color: white;
+    -fx-font-size: 30;
+    -fx-text-fill: #2196f3;
+    -fx-background-radius: 22;
+    -fx-border-color: #2196f3;
+    -fx-border-radius: 20;
+    -fx-border-width: 3;
+
+
+    /*
+    -fx-opacity: 100%;
+
+    -fx-background-color: linear-gradient(#7ebcea, #2f4b8f);*/
+}

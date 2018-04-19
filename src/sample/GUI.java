@@ -3,6 +3,7 @@ package sample;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,12 +18,14 @@ import javafx.stage.Stage;
 
 public class GUI extends Application {
 
-    private static final int SIZE = 21;
+    //private static  int SIZE = 21;
     private static final int WIDTH = 40;
     Stage Welcome, Panel;
     Scene scn1, scn2, scn3;
     static GridPane grid;
     static ImageView background, gridimg;
+    static int [][]weightarray_40;
+    static int S_xcor,S_ycor,E_xcor,E_ycor;
 
     public static void main(String[] args) {
         launch(args);
@@ -47,6 +50,7 @@ public class GUI extends Application {
         Button startbtn = new Button("Start");
         GridPane.setConstraints(startbtn, 3, 3);
         startbtn.setOnAction(event -> Welcome.setScene(scn2));
+
 
         grid1.setAlignment(Pos.CENTER);
         grid1.setPadding(new Insets(10, 10, 10, 10));
@@ -183,8 +187,10 @@ public class GUI extends Application {
         btns.getChildren().addAll(btnSetPoint, btnFind);
 
         Button btnReset = new Button("Reset");
+        Button btn_40 = new Button("40X40 Grid");
+        Button btn_20=new Button("20X20 Grid");
 
-        subMenu2.getChildren().addAll(S_xyBox, E_xyBox, btns, btnReset);
+        subMenu2.getChildren().addAll(S_xyBox, E_xyBox, btns, btnReset, btn_40,btn_20);
 
         menuWrapper.getChildren().addAll(menuTitle, sub_menu, subMenu2);
 
@@ -242,7 +248,6 @@ public class GUI extends Application {
             @Override
             public void handle(MouseEvent event) {
                 try {
-
                     if (Grid.startHistory > 0) {
 
                         /**
@@ -250,8 +255,10 @@ public class GUI extends Application {
                          * S_xcor : Starting point x co-ordinates
                          * S_ycor : Starting point y co-ordinates
                          */
-                        int S_xcor = Integer.parseInt(xCor.getText().toString());
-                        int S_ycor = Integer.parseInt(yCor.getText().toString());
+                         S_xcor = Integer.parseInt(xCor.getText().toString());
+                         S_ycor = Integer.parseInt(yCor.getText().toString());
+
+
 
 
                         /**
@@ -259,9 +266,10 @@ public class GUI extends Application {
                          * E_xcor : End point x co-ordinates
                          * E_ycor : End point y co-ordinates
                          */
-                        int E_xcor = Integer.parseInt(xCor_E.getText().toString());
-                        int E_ycor = Integer.parseInt(yCor_E.getText().toString());
+                         E_xcor = Integer.parseInt(xCor_E.getText().toString());
+                         E_ycor = Integer.parseInt(yCor_E.getText().toString());
 
+                        //Grid.string_Validation();
 
                         /**
                          * Set the metrics and show the path in the grid
@@ -312,7 +320,9 @@ public class GUI extends Application {
                     Grid.show_Start_End(grid, S_xcor, S_ycor, E_xcor, E_ycor);
 
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Alert error = Grid.alerts("Error", "Enter valid waypoints", Alert.AlertType.ERROR, "Fix");
+                    error.show();
+                    //e.printStackTrace();
                 }
 
             }
@@ -324,6 +334,26 @@ public class GUI extends Application {
                 try {
                     resetgrid(scn2);
                     System.out.println("reset");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        btn_40.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    gridDouble();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        btn_20.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    gridSmall();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -392,14 +422,46 @@ public class GUI extends Application {
 
     /**
      * This method reset the grid
-     *
      * @param scene
      */
     private void resetgrid(Scene scene) {
         Grid.startHistory = 0;
+
         Welcome.setScene(scene);
 
     }
 
+    public static void gridDouble() {
 
+        Grid.SIZE = 40;
+
+        System.out.println("VImma adarei");
+
+        int[][] weightArray_40 = new int[2*Grid.weightArray.length][2*Grid.weightArray.length];
+
+        for(int i=0; i<Grid.weightArray.length; i++) {
+            for(int j=0; j<Grid.weightArray.length; j++) {
+                int temp = Grid.weightArray[i][j];
+                weightArray_40[i*2][j*2] = temp;
+                weightArray_40[i*2][j*2+1] = temp;
+                weightArray_40[i*2+1][j*2] = temp;
+                weightArray_40[i*2+1][j*2+1] = temp;
+            }
+        }
+
+        Grid.weightArray = weightArray_40;
+        Grid.rectangle_height=15;
+        Grid.rectangle_width=15;
+        Grid.setGrid(grid);
+
+
+    }
+
+    public static void gridSmall(){
+
+        weightarray_40=Grid.weightArray;
+        Grid.rectangle_height=30;
+        Grid.rectangle_width=30;
+        Grid.setGrid(grid);
+    }
 }

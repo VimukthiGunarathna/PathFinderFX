@@ -1,8 +1,6 @@
 package sample;
 
-import javafx.geometry.HPos;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -17,7 +15,7 @@ public class Grid {
      * G:distance from starting point
      * H:distance to end point (approximate)
      */
-    static final int SIZE = 20;
+    static int SIZE = 20;
     int x, y;//x,y coordinates of the grid
     double weight;
     double g;//g value
@@ -31,6 +29,10 @@ public class Grid {
     static final int radius = 10;
     static int s_X, s_Y, e_X, e_Y;
     static int startHistory = 0;
+    static int rectangle_width=30;
+    static int rectangle_height=30;
+
+
 
     public Grid(int x, int y, double weight) {
         this.x = x;
@@ -110,7 +112,7 @@ public class Grid {
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
                 int weight = Grid.weightArray[i][j];
-                rectangle = new Rectangle(0, 0, 30, 30);
+                rectangle = new Rectangle(0, 0, rectangle_width, rectangle_height);
 
                 switch (weight) {
                     case 1:
@@ -175,14 +177,16 @@ public class Grid {
 
     public static void findPath_btnAction(GridPane grid, int S_xcor, int S_ycor, int E_xcor, int E_ycor) {
 
-
-
-        System.out.println("Total Cost :" + PathFinder.grid[e_X][e_Y].fullCost);
-
         PathFinder.findPath(S_xcor, S_ycor, E_xcor, E_ycor);
+
+        // display grid & path in StdDraw - time start
+        PathFinder.guiTime_1 = System.nanoTime();
+
         PathFinder.drawPath(S_xcor, S_ycor, E_xcor, E_ycor, waypoint);
 
-
+        // display grid & path in StdDraw - time end
+        PathFinder.guiTime_2 = System.nanoTime();
+        printCost();
     }
 
     public static Grid[][] getGrid() {
@@ -250,6 +254,16 @@ public class Grid {
         alert.setContentText(Content);
 
         return alert;
+    }
+
+    public static void printCost(){
+
+        System.out.println("Total Cost : " + PathFinder.grid[e_X][e_Y].fullCost);
+        Alert cost=alerts("Total Cost","Total cost :"+PathFinder.grid[e_X][e_Y].fullCost+"\n" +
+                "Elapsed Time: Find path : "+PathFinder.getFindPath_Time()+"ms \n" +
+                "Elapsed Time: Dislpay GUI : "+PathFinder.getGui_Time()+"ms",Alert.AlertType.INFORMATION,"Total Cost");
+        cost.show();
+
     }
 
 }

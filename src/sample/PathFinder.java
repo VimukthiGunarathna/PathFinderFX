@@ -21,6 +21,15 @@ public class PathFinder {
     // 'visited' status of cells
     private static boolean closed[][];
 
+    /*
+    for time calculations
+    -----------------
+    time1 = calculate path
+    time2 = show path & grid in CLI
+    time3 = show path & grid in GUI
+     */
+    static long findPath_t1, findPath_t2, guiTime_1, guiTime_2;
+
 
     /**
      * This method sets the metrics and sets the
@@ -142,6 +151,8 @@ public class PathFinder {
             }
         });
 
+        // calculate path - time start
+        findPath_t1 = System.nanoTime();
 
         for (int x = 0; x < Grid.SIZE; x++) {
             for (int y = 0; y < Grid.SIZE; y++) {
@@ -210,7 +221,7 @@ public class PathFinder {
             }
 
             // calculate path - time end
-            //ime1_t2 = System.nanoTime();
+            findPath_t2 = System.nanoTime();
 
             System.out.println("");
             System.out.println("Path found!");
@@ -221,7 +232,7 @@ public class PathFinder {
             // end point has not reached
             // path stopped in middle
             // calculate path - time end
-            //time1_t2 = System.nanoTime();
+            findPath_t2 = System.nanoTime();
 
             System.out.println("");
             System.out.println("No possible path!");
@@ -229,8 +240,7 @@ public class PathFinder {
         }
 
 
-        // display grid & path in CLI - time start
-        //time2_t1 = System.nanoTime();
+
 
         /**
          * Display grid including the shortest path in CLI
@@ -263,8 +273,6 @@ public class PathFinder {
             System.out.println();
         }
         System.out.println();
-
-        //time2_t2 = System.nanoTime();
 
     }
 
@@ -429,6 +437,17 @@ public class PathFinder {
                 open.add(temp);
             }
         }
+    }
+
+
+    static double getGui_Time(){
+        double Gui_Time=((guiTime_2 - guiTime_1) / 1000000.0);
+        return Gui_Time;
+    }
+
+    static int getFindPath_Time(){
+        double path_Time=((findPath_t2 - findPath_t1) / 1000000.0);
+        return 4;
     }
 
 }

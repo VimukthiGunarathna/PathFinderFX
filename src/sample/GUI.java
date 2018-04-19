@@ -154,8 +154,6 @@ public class GUI extends Application {
         options.getChildren().addAll(radio_grid, radio_bckgrnd);
 
         sub2.getChildren().addAll(lblSelectView, options);
-
-
         sub_menu.getChildren().addAll(sub1,sub2);
 
 

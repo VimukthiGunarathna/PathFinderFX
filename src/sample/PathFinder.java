@@ -439,7 +439,6 @@ public class PathFinder {
         }
     }
 
-
     static double getGui_Time(){
         double Gui_Time=((guiTime_2 - guiTime_1) / 1000000.0);
         return Gui_Time;

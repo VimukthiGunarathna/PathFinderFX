@@ -20,12 +20,13 @@ public class GUI extends Application {
 
     //private static  int SIZE = 21;
     private static final int WIDTH = 40;
-    Stage Welcome, Panel;
-    Scene scn1, scn2, scn3;
+    static Stage Welcome, Panel;
+    static Scene scn1, scn2, scn3;
     static GridPane grid;
     static ImageView background, gridimg;
     static int [][]weightarray_40;
     static int S_xcor,S_ycor,E_xcor,E_ycor;
+    static Button btnReset;
 
     public static void main(String[] args) {
         launch(args);
@@ -52,6 +53,7 @@ public class GUI extends Application {
         startbtn.setOnAction(event -> Welcome.setScene(scn2));
 
 
+
         grid1.setAlignment(Pos.CENTER);
         grid1.setPadding(new Insets(10, 10, 10, 10));
         grid1.getChildren().addAll(startbtn);
@@ -68,7 +70,7 @@ public class GUI extends Application {
     /**
      * Grid Panel window that has all the GUI elements in the Path Finder
      */
-    private Scene GridPanel() {
+    private static Scene GridPanel() {
 
 
         /**
@@ -186,7 +188,7 @@ public class GUI extends Application {
         Button btnSetPoint = new Button("Set Point");
         btns.getChildren().addAll(btnSetPoint, btnFind);
 
-        Button btnReset = new Button("Reset");
+        btnReset = new Button("Reset");
         Button btn_40 = new Button("40X40 Grid");
         Button btn_20=new Button("20X20 Grid");
 
@@ -230,6 +232,7 @@ public class GUI extends Application {
 
             }
         });
+
 
 
         /**
@@ -332,8 +335,9 @@ public class GUI extends Application {
             @Override
             public void handle(MouseEvent event) {
                 try {
-                    resetgrid(scn2);
+                    resetgrid();
                     System.out.println("reset");
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -373,7 +377,7 @@ public class GUI extends Application {
      * @param cb : selected string value
      * @return
      */
-    private String getChoice(ChoiceBox<String> cb) {
+    private static String getChoice(ChoiceBox<String> cb) {
         return cb.getValue();
     }
 
@@ -386,7 +390,7 @@ public class GUI extends Application {
      * @param placeHolder : placeholder we created
      * @param width       : width of txt field
      */
-    private void setTextField(TextField txt, String placeHolder, double width) {
+    private static void setTextField(TextField txt, String placeHolder, double width) {
         txt.setPromptText(placeHolder);
         txt.setPrefWidth(width);
     }
@@ -400,7 +404,7 @@ public class GUI extends Application {
      * @param value:  Position of the Hbox
      * @param spacing : Spacing of the Hbox
      */
-    private void setContainerHbox(HBox hBox, Pos value, double spacing) {
+    private static void setContainerHbox(HBox hBox, Pos value, double spacing) {
         hBox.setAlignment(value);
         hBox.setSpacing(spacing);
     }
@@ -414,7 +418,7 @@ public class GUI extends Application {
      * @param value   : Position of the Vbox
      * @param spacing : Spacing of the Vbox
      */
-    private void setContainerVbox(VBox vBox, Pos value, double spacing) {
+    private static void setContainerVbox(VBox vBox, Pos value, double spacing) {
         vBox.setAlignment(value);
         vBox.setSpacing(spacing);
     }
@@ -422,12 +426,14 @@ public class GUI extends Application {
 
     /**
      * This method reset the grid
-     * @param scene
+     * @param
      */
-    private void resetgrid(Scene scene) {
-        Grid.startHistory = 0;
+    public static void resetgrid() {
 
-        Welcome.setScene(scene);
+        scn2=GridPanel();
+        Grid.startHistory = 0;
+        System.out.println("vimma lover boy");
+        Welcome.setScene(scn2);
 
     }
 
@@ -452,6 +458,7 @@ public class GUI extends Application {
         Grid.weightArray = weightArray_40;
         Grid.rectangle_height=15;
         Grid.rectangle_width=15;
+        resetgrid();
         Grid.setGrid(grid);
 
 

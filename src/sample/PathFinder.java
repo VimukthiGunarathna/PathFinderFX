@@ -151,15 +151,15 @@ public class PathFinder {
 
                 //Calculates the heuristic cost
                 if (metrics == "Manhattan") {
-                    grid[x][y].h = (Math.abs(x - x2) + Math.abs(y - y2)) * grid[x][y].weight; //calculating manhattan cost
+                    grid[x][y].h = (Math.abs(x - x2) + Math.abs(y - y2)); //* grid[x][y].weight; //calculating manhattan cost
 
                 } else if (metrics == "Euclidean") {
 
 
-                    grid[x][y].h = (Math.sqrt(Math.pow((x - x2), 2) + Math.pow((y - y2), 2))) * grid[x][y].weight;//calculating euclidean
+                    grid[x][y].h = (Math.sqrt(Math.pow((x - x2), 2) + Math.pow((y - y2), 2))); //* grid[x][y].weight;//calculating euclidean
 
                 } else if (metrics == "Chebyshev") {
-                    grid[x][y].h = (Math.max(Math.abs(x - x2), Math.abs(y - y2))) * grid[x][y].weight;//calculating chebyshev
+                    grid[x][y].h = (Math.max(Math.abs(x - x2), Math.abs(y - y2)));//* grid[x][y].weight;//calculating chebyshev
 
                 }
             }
@@ -407,7 +407,8 @@ public class PathFinder {
         }
 
         // temporary F value for the temp node
-        double tempFinalCost = cost + temp.h; // temp(F = G + H)
+        // G * weight
+        double tempFinalCost = cost*temp.weight + temp.h; // temp(F = G + H)
 
         // open status of temp cell
         boolean inOpen = open.contains(temp);

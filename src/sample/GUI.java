@@ -22,7 +22,7 @@ public class GUI extends Application {
     Stage Welcome, Panel;
     Scene scn1, scn2, scn3;
     static GridPane grid;
-    static ImageView background,gridimg;
+    static ImageView background, gridimg;
 
     public static void main(String[] args) {
         launch(args);
@@ -59,8 +59,6 @@ public class GUI extends Application {
         scn2 = GridPanel();
         Welcome.show();
     }
-
-
 
 
     /**
@@ -102,7 +100,6 @@ public class GUI extends Application {
         setContainerVbox(sub_menu, Pos.CENTER, 50);
 
 
-
         /**
          * Sub Menu first item
          */
@@ -116,7 +113,6 @@ public class GUI extends Application {
         //set a default value
         Metrics.setValue("Manhattan");
         sub1.getChildren().addAll(label_Matrics, Metrics);
-
 
 
         /**
@@ -136,17 +132,6 @@ public class GUI extends Application {
         radio_bckgrnd.setUserData("Background");
 
 
-        if (radio_bckgrnd.isSelected())
-        {
-            //labelresponse.setText("Correct answer");
-        }
-        else
-        {
-            //labelresponse.setText("Wrong answer");
-        }
-
-
-
         radio_grid.setSelected(true);
 
         HBox options = new HBox();
@@ -154,7 +139,7 @@ public class GUI extends Application {
         options.getChildren().addAll(radio_grid, radio_bckgrnd);
 
         sub2.getChildren().addAll(lblSelectView, options);
-        sub_menu.getChildren().addAll(sub1,sub2);
+        sub_menu.getChildren().addAll(sub1, sub2);
 
 
         /**
@@ -191,20 +176,17 @@ public class GUI extends Application {
         E_xyBox.getChildren().addAll(lbl_E_XYCo, xCor_E, yCor_E);
 
 
-        HBox btns=new HBox();
-        setContainerHbox(btns,Pos.CENTER,50);
+        HBox btns = new HBox();
+        setContainerHbox(btns, Pos.CENTER, 50);
         Button btnFind = new Button("Find Path");
-        Button btnSetPoint=new Button("Set Point");
-        btns.getChildren().addAll(btnSetPoint,btnFind);
+        Button btnSetPoint = new Button("Set Point");
+        btns.getChildren().addAll(btnSetPoint, btnFind);
 
         Button btnReset = new Button("Reset");
 
         subMenu2.getChildren().addAll(S_xyBox, E_xyBox, btns, btnReset);
 
         menuWrapper.getChildren().addAll(menuTitle, sub_menu, subMenu2);
-
-
-
 
 
         grid = new GridPane();
@@ -215,14 +197,40 @@ public class GUI extends Application {
 
 
         /**
+         * This method sets the background image
+         *
+         */
+        group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
+
+                String temp;
+                Image img = new Image("/Images/background.png");
+
+                if (group.getSelectedToggle() != null) {
+                    System.out.println("Selected View : " + group.getSelectedToggle().getUserData().toString());
+                    System.out.println('\n');
+                    temp = group.getSelectedToggle().getUserData().toString();//gets the dataset of radion button
+
+                    switch (temp) {
+                        case "Background":
+                            grid.setStyle("-fx-background-image: url('/Images/background.png')");
+                            //grid.setBackground();//getChildren().add(new ImageView(img));
+                            break;
+
+                        case "Grid":
+                            grid.setStyle("-fx-background-image: null");
+                    }
+                }
+
+            }
+        });
+
+
+        /**
          * HBox that holds the grid and the menu
          */
-
-        ///////xxxxxxxxxxxxxxxxxxxxxx/////////////
         HBox canvas_layout = new HBox();
         setContainerHbox(canvas_layout, Pos.CENTER, 30);
-        ///////xxxxxxxxxxxxxxxxxxxxxx/////////////
-
         canvas_layout.getChildren().addAll(menuWrapper, grid);
 
 
@@ -235,7 +243,7 @@ public class GUI extends Application {
             public void handle(MouseEvent event) {
                 try {
 
-                    if (Grid.startHistory>0){
+                    if (Grid.startHistory > 0) {
 
                         /**
                          * Converts user inputs of x,y co-ordinate to int
@@ -261,8 +269,8 @@ public class GUI extends Application {
                         PathFinder.setMetrics(getChoice(Metrics));//gets the selected metrics and set it
                         Grid.findPath_btnAction(grid, S_xcor, S_ycor, E_xcor, E_ycor);
 
-                    }else{
-                        Alert error=Grid.alerts("Error","Set waypoints first",Alert.AlertType.ERROR,"Fix");
+                    } else {
+                        Alert error = Grid.alerts("Error", "Set waypoints first", Alert.AlertType.ERROR, "Fix");
                         error.show();
                     }
 
@@ -310,12 +318,6 @@ public class GUI extends Application {
             }
 
         });
-
-
-
-        scn2 = new Scene(canvas_layout);
-        scn2.getStylesheets().add("/StyleSheet/SCN2_CSS.css");
-
         btnReset.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -327,9 +329,11 @@ public class GUI extends Application {
                 }
             }
         });
+
+        scn2 = new Scene(canvas_layout);
+        scn2.getStylesheets().add("/StyleSheet/SCN2_CSS.css");
         return scn2;
     }
-
 
 
     /**
@@ -348,9 +352,9 @@ public class GUI extends Application {
      * This method contains the properties of
      * the TextField
      *
-     * @param txt : txt field we created in GUI
+     * @param txt         : txt field we created in GUI
      * @param placeHolder : placeholder we created
-     * @param width : width of txt field
+     * @param width       : width of txt field
      */
     private void setTextField(TextField txt, String placeHolder, double width) {
         txt.setPromptText(placeHolder);
@@ -362,8 +366,8 @@ public class GUI extends Application {
      * This method contains the properties of
      * the HBox
      *
-     * @param hBox : Hbox we created
-     * @param value: Position of the Hbox
+     * @param hBox    : Hbox we created
+     * @param value:  Position of the Hbox
      * @param spacing : Spacing of the Hbox
      */
     private void setContainerHbox(HBox hBox, Pos value, double spacing) {
@@ -376,8 +380,8 @@ public class GUI extends Application {
      * This method contains the properties of
      * the VBox
      *
-     * @param vBox : Vbox we created
-     * @param value : Position of the Vbox
+     * @param vBox    : Vbox we created
+     * @param value   : Position of the Vbox
      * @param spacing : Spacing of the Vbox
      */
     private void setContainerVbox(VBox vBox, Pos value, double spacing) {
@@ -388,10 +392,11 @@ public class GUI extends Application {
 
     /**
      * This method reset the grid
+     *
      * @param scene
      */
     private void resetgrid(Scene scene) {
-        Grid.startHistory=0;
+        Grid.startHistory = 0;
         Welcome.setScene(scene);
 
     }

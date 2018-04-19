@@ -41,11 +41,22 @@ public class PathFinder  {
                 ver_hori_cost = 1; // cost for vertical & horizontal
                 break;
         }
-        //setting the 
+        //setting the
         metrics=m;
         System.out.println("Metrics: "+ m);
     }
 
+
+    /**
+     * This method draws circles which shows the
+     * shortest path.
+     * @param x1 : user entered starting point 'x' co-ordinate
+     * @param y1 : user entered starting point 'y' co-ordinate
+     * @param x2 : user entered ending point 'x' co-ordinate
+     * @param y2 : user entered ending point 'y' co-ordinate
+     * @param path : Integer arraylist that contains the shortest path's
+     *               'x','y' co-ordinates.
+     */
     public static void drawPath(int x1, int y1, int x2, int y2, ArrayList<Integer[]> path) {
 
         for(int i=0; i<Grid.SIZE; i++) {
@@ -53,23 +64,22 @@ public class PathFinder  {
 
                 Circle path_circle = new Circle(RADIUS, Color.BLUE);
 
-                // check whether the cell is a member of path
+
                 /**
-                 * This loop checks whether a cell is in the
-                 * shortest path.
+                 * This loop checks whether a cell is in the arraylist which
+                 *  contains the shortest path.
                  */
                 boolean cont = false;
-
                 for (int m=0; m<path.size(); m++) {
                     Integer[] temp = path.get(m);
                     if (temp[0] == i && temp[1] == j) {
                         cont = true;
                         if (i == x1 && j == y1){
-                            //start point
+                            //Skip the start point
                             cont = false;
                         }
                         if(i == x2 && j == y2) {
-                            //end point
+                            //Skip the end point
                             cont = false;
                         }
                     }
@@ -79,7 +89,6 @@ public class PathFinder  {
                 if (cont) {
                     // cell is included in path
                     if (metrics != "Euclidean") {
-
                         // not euclidean
                         // cell is in path
                         Grid.grid2.add(path_circle, j,i);
@@ -89,9 +98,11 @@ public class PathFinder  {
             }
         }
 
+
     }
 
     public static void findPath(int aX, int aY, int bX, int bY) {
+
         closed = new boolean[Grid.SIZE][Grid.SIZE];
 
         // priority queue to contain open cells
@@ -282,8 +293,11 @@ public class PathFinder  {
 
                 }
 
-                if (current.y + 1 < grid[0].length) {
 
+
+
+
+                if (current.y + 1 < grid[0].length) {
                     if (metrics != "Manhattan") {
                         // left top cell (not for manhattan)
                         System.out.println(metrics);
@@ -291,29 +305,39 @@ public class PathFinder  {
                         calculateCost(current, t, current.g + dCost);
                     }
                 }
-            }
-            if (current.y - 1 >= 0) {
 
+
+            }
+
+
+            if (current.y - 1 >= 0) {
                 // bottom cell
                 t = grid[current.x][current.y - 1];
                 calculateCost(current, t, current.g + ver_hori_cost);
             }
 
-            if (current.y + 1 < grid[0].length) {
 
+
+
+            if (current.y + 1 < grid[0].length) {
                 // top cell
                 t = grid[current.x][current.y + 1];
                 calculateCost(current, t, current.g + ver_hori_cost);
             }
 
-            if (current.x + 1 < grid.length) {
 
+
+
+
+            if (current.x + 1 < grid.length) {
                 // right cell
                 t = grid[current.x + 1][current.y];
                 calculateCost(current, t, current.g + ver_hori_cost);
 
-                if (current.y - 1 >= 0) {
 
+
+
+                if (current.y - 1 >= 0) {
                     if (metrics != "Manhattan") {
                         // right bottom cell (not for manhattan)
                         System.out.println(metrics);
@@ -322,8 +346,11 @@ public class PathFinder  {
                     }
                 }
 
-                if (current.y + 1 < grid[0].length) {
 
+
+
+
+                if (current.y + 1 < grid[0].length) {
                     if (metrics != "Manhattan") {
                         // top right cell (not for manhattan)
                         System.out.println(metrics);

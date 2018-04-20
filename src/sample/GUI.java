@@ -458,6 +458,7 @@ public class GUI extends Application {
     public static void gridDouble() {
 
         Grid.SIZE = 40;
+        Grid.radius=6;
         weightArray_40 = new int[2*Grid.weightArray.length][2*Grid.weightArray.length];
 
         for(int i=0; i<Grid.weightArray.length; i++) {
@@ -470,9 +471,11 @@ public class GUI extends Application {
             }
         }
 
+
         Grid.weightArray = weightArray_40;
         Grid.rectangle_height=15;
         Grid.rectangle_width=15;
+        PathFinder.RADIUS=5;
         reset();
 
 
@@ -485,6 +488,8 @@ public class GUI extends Application {
         Grid.weightArray=Grid.temp;
         Grid.rectangle_height=30;
         Grid.rectangle_width=30;
+        Grid.radius=15;
+        PathFinder.RADIUS=10;
         reset();
     }
 }

@@ -9,7 +9,7 @@ import java.util.PriorityQueue;
 
 public class PathFinder {
 
-    private static final int RADIUS = 7;
+    public static  int RADIUS = 10;
     private static double dCost;          //Diagnol cost
     private static double ver_hori_cost; //Vertical and horizontal cost
     public static String metrics;
@@ -444,9 +444,9 @@ public class PathFinder {
         return Gui_Time;
     }
 
-    static int getFindPath_Time(){
+    static double getFindPath_Time(){
         double path_Time=((findPath_t2 - findPath_t1) / 1000000.0);
-        return 4;
+        return path_Time;
     }
 
 }

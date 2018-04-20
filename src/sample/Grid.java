@@ -26,7 +26,7 @@ public class Grid {
     // contains cells that were travelled from
     static ArrayList<Integer[]> waypoint = new ArrayList<Integer[]>();
     static GridPane grid2;
-    static final int radius = 10;
+    static  int radius = 15;
     static int s_X, s_Y, e_X, e_Y;
     static int startHistory = 0;
     static int rectangle_width=30;

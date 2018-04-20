@@ -13,7 +13,7 @@ public class PathFinder {
     private static double dCost;          //Diagnol cost
     private static double ver_hori_cost; //Vertical and horizontal cost
     public static String metrics;
-    static Grid[][] grid = Grid.getGrid();
+    static Grid[][] grid;
 
     // stores visitable (unvisited) cells
     public static PriorityQueue<Grid> open;
@@ -130,6 +130,7 @@ public class PathFinder {
      */
     public static void findPath(int x1, int y1, int x2, int y2) {
 
+        grid = Grid.getGrid();
         closed = new boolean[Grid.SIZE][Grid.SIZE];
 
         // Priority que that has open cells.

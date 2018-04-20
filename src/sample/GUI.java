@@ -212,7 +212,7 @@ public class GUI extends Application {
             public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
 
                 String temp;
-                Image img = new Image("/Images/background.png");
+                //Image img = new Image("/Images/background.png");
 
                 if (group.getSelectedToggle() != null) {
                     System.out.println("Selected View : " + group.getSelectedToggle().getUserData().toString());

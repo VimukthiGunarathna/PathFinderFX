@@ -104,12 +104,13 @@ public class PathFinder {
 
                 if (cont) {
                     // cell is included in path
-                    if (metrics != "Euclidean") {
+                    /*if (metrics != "Euclidean") {
                         // not euclidean
                         // cell is in path
                         Grid.grid2.add(path_circle, j, i);
 
-                    }
+                    }*/
+                    Grid.grid2.add(path_circle, j, i);
                 }
             }
         }

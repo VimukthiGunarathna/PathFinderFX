@@ -3,7 +3,6 @@ package sample;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -27,6 +26,7 @@ public class GUI extends Application {
     static int [][]weightarray_40;
     static int S_xcor,S_ycor,E_xcor,E_ycor;
     static Button btnReset;
+    static int[][] weightArray_40;
 
     public static void main(String[] args) {
         launch(args);
@@ -246,6 +246,7 @@ public class GUI extends Application {
         /**
          * Button action for find path btn
          * Button action for reset btn
+         * Two buttons to switch between 20x20 grid and 40x40 grid
          */
         btnFind.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -335,7 +336,7 @@ public class GUI extends Application {
             @Override
             public void handle(MouseEvent event) {
                 try {
-                    resetgrid();
+                    reset();
                     System.out.println("reset");
 
                 } catch (Exception e) {
@@ -428,22 +429,36 @@ public class GUI extends Application {
      * This method reset the grid
      * @param
      */
-    public static void resetgrid() {
+    public static void reset() {
 
         scn2=GridPanel();
         Grid.startHistory = 0;
-        System.out.println("vimma lover boy");
+        PathFinder.metrics="Manhattan";
+        Grid.s_X=0;
+        Grid.s_Y=0;
+        Grid.e_X=0;
+        Grid.e_Y=0;
+        Grid.waypoint.clear();
+
+        if (PathFinder.open==null){
+            System.out.println("Open que is null");
+        }else{
+            PathFinder.open.clear();
+        }
         Welcome.setScene(scn2);
 
+    }
+
+    public static void resetGrid(){
+
+        scn2=GridPanel();
+        Welcome.setScene(scn2);
     }
 
     public static void gridDouble() {
 
         Grid.SIZE = 40;
-
-        System.out.println("VImma adarei");
-
-        int[][] weightArray_40 = new int[2*Grid.weightArray.length][2*Grid.weightArray.length];
+        weightArray_40 = new int[2*Grid.weightArray.length][2*Grid.weightArray.length];
 
         for(int i=0; i<Grid.weightArray.length; i++) {
             for(int j=0; j<Grid.weightArray.length; j++) {
@@ -458,17 +473,18 @@ public class GUI extends Application {
         Grid.weightArray = weightArray_40;
         Grid.rectangle_height=15;
         Grid.rectangle_width=15;
-        resetgrid();
-        Grid.setGrid(grid);
+        reset();
+
 
 
     }
 
     public static void gridSmall(){
 
-        weightarray_40=Grid.weightArray;
+        Grid.SIZE=20;
+        Grid.weightArray=Grid.temp;
         Grid.rectangle_height=30;
         Grid.rectangle_width=30;
-        Grid.setGrid(grid);
+        reset();
     }
 }

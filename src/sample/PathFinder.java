@@ -12,11 +12,11 @@ public class PathFinder {
     private static final int RADIUS = 7;
     private static double dCost;          //Diagnol cost
     private static double ver_hori_cost; //Vertical and horizontal cost
-    private static String metrics;
+    public static String metrics;
     static Grid[][] grid = Grid.getGrid();
 
     // stores visitable (unvisited) cells
-    private static PriorityQueue<Grid> open;
+    public static PriorityQueue<Grid> open;
 
     // 'visited' status of cells
     private static boolean closed[][];

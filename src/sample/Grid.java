@@ -34,6 +34,7 @@ public class Grid {
 
 
 
+
     public Grid(int x, int y, double weight) {
         this.x = x;
         this.y = y;
@@ -73,6 +74,9 @@ public class Grid {
             {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5},
 
     };
+    static int[][]temp=weightArray;
+
+
 
 
     public static void setGrid(GridPane grid) {

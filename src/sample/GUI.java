@@ -8,21 +8,24 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+/**
+ *
+ * @author Vimukthi Gunarathna 2016374
+ *
+ */
 
 public class GUI extends Application {
 
     //private static  int SIZE = 21;
     private static final int WIDTH = 40;
-    static Stage Welcome, Panel;
-    static Scene scn1, scn2, scn3;
+    static Stage Welcome;
+    static Scene scn1, scn2;
     static GridPane grid;
-    static ImageView background, gridimg;
     static int [][]weightarray_40;
     static int S_xcor,S_ycor,E_xcor,E_ycor;
     static Button btnReset;
@@ -427,7 +430,6 @@ public class GUI extends Application {
 
     /**
      * This method reset the grid
-     * @param
      */
     public static void reset() {
 
@@ -449,12 +451,13 @@ public class GUI extends Application {
 
     }
 
-    public static void resetGrid(){
-
-        scn2=GridPanel();
-        Welcome.setScene(scn2);
-    }
-
+    /**
+     * This method sets the 40X40 grid to the canvas
+     * and also do a reset
+     *
+     * assign the 40X40 Grid [][] array to the weightsArray
+     *
+     */
     public static void gridDouble() {
 
         Grid.SIZE = 40;
@@ -482,6 +485,16 @@ public class GUI extends Application {
 
     }
 
+
+
+
+    /**
+     * This method sets the 20X20 grid to the canvas
+     * and also do a reset
+     *
+     * assign the 20X20 Grid [][] array to the weightsArray
+     *
+     */
     public static void gridSmall(){
 
         Grid.SIZE=20;

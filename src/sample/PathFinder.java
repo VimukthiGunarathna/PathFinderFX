@@ -21,12 +21,11 @@ public class PathFinder {
     // 'visited' status of cells
     private static boolean closed[][];
 
-    /*
-    for time calculations
-    -----------------
-    time1 = calculate path
-    time2 = show path & grid in CLI
-    time3 = show path & grid in GUI
+    /**
+     * findPath_t1 - path time/ start point
+     * findPath_t2 - path time/ end point
+     * guiTime_1 - gui time/ start point
+     * guiTime_2 - gui time/ end point
      */
     static long findPath_t1, findPath_t2, guiTime_1, guiTime_2;
 
@@ -402,8 +401,8 @@ public class PathFinder {
     /**
      * This method calculates the full cost and print
      *
-     * @param current :
-     * @param temp    :
+     * @param current : current grid
+     * @param temp    : tempory grid
      * @param cost    : current node G value
      */
     static void calculateCost(Grid current, Grid temp, double cost) {
@@ -433,7 +432,6 @@ public class PathFinder {
             // current cell is the parent for this temp cell
             temp.parent_cell = current;
 
-
             if (!inOpen) {
                 // open this cell
                 open.add(temp);
@@ -441,11 +439,20 @@ public class PathFinder {
         }
     }
 
+    /**
+     *
+     * @return Gui_time - returns the time that takes to set GUI
+     */
     static double getGui_Time(){
         double Gui_Time=((guiTime_2 - guiTime_1) / 1000000.0);
         return Gui_Time;
     }
 
+
+    /**
+     *
+     * @return path_time - returns the time that takes to find the path
+     */
     static double getFindPath_Time(){
         double path_Time=((findPath_t2 - findPath_t1) / 1000000.0);
         return path_Time;

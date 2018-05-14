@@ -26,9 +26,16 @@ public class Grid {
     // contains cells that were travelled from
     static ArrayList<Integer[]> waypoint = new ArrayList<Integer[]>();
     static GridPane grid2;
-    static  int radius = 15;
-    static int s_X, s_Y, e_X, e_Y;
+    static  int radius = 15;//radius of the circle
+    static int s_X, s_Y, e_X, e_Y;//user entered x,y paths
+
+    /**
+     * store the times we used the 'start btn'
+     */
     static int startHistory = 0;
+    /**
+     * single rectangle size of the grid
+     */
     static int rectangle_width=30;
     static int rectangle_height=30;
 
@@ -77,8 +84,9 @@ public class Grid {
     static int[][]temp=weightArray;
 
 
-
-
+    /**
+     * Sets the grid to the layout
+     */
     public static void setGrid(GridPane grid) {
 
         Rectangle rectangle;
@@ -262,6 +270,10 @@ public class Grid {
         return alert;
     }
 
+
+    /**
+     * This method prints the cost on alertbox
+     */
     public static void printCost(){
 
         System.out.println("Total Cost : " + PathFinder.grid[e_X][e_Y].fullCost);
